@@ -11,8 +11,8 @@ The value proposition of a content backend like Versioned is that it provides a 
 
 At a conceptual level Versioned is made up of the following core building blocks:
 
-* Models (i.e. database tables). Models are the content types that define the structure (schema) of your data, i.e. what fields you can store, the validation rules, and the relationships between different types of data. You for example have an `Author` model with the fields name and biography and an `Article` model with the fields title and body. The `Author` and `Article` models can then have a relationship so that an author has many articles and each article belongs to an author.
-* Data (i.e. database rows). Data is the content entered into each model and the basis for the JSON content that gets delivered to your clients.
+* Models (i.e. database tables). Models are the content types that define the structure (schema) of your data, i.e. what fields you can store, the validation rules, and the relationships between different types of data. You for example have an `Author` model with the fields `name` and `biography` and an `Article` model with the fields `title` and `body`. The `Author` and `Article` models can then have a relationship so that an author `has many` articles and each article `belongs to` an author.
+* Data (i.e. database rows). Data is the content entered into each model and once it's published it gets delivered as JSON to your clients.
 * Spaces (i.e. database namespaces). Spaces are used to group models and their data and typically represent different projects in your organization.
 
 ## The REST API
