@@ -11,16 +11,16 @@ The main building blocks are:
 
 ## Value Proposition
 
-Versioned provides a cost- and time-effective way to manage content via a web UI and to publish it through an API to your websites and applications (and any other clients or systems that need it). Building such a system from scratch takes months of developer time. With Versioned you can be up and running in hours and you don't and you also avoid the maintenance burden of writing software.
+Versioned provides a cost- and time-effective way to manage content via a web UI and to publish it through an API to your websites and applications (and any other clients or systems that need it). Building such a system from scratch takes months of developer time. With Versioned you can be up and running in hours and you also avoid the maintenance burden of custom software.
 
 ## Feature Highlights
 
 * *Dynamic Content Types* - a flexible way for content editors to set up the content types they need without having to do any software development
 * *Data Validation* - content types are a collection of fields and each field has a data type and optionally validation rules to ensure the integrity of the data
-* *Relationships* - the field of a content type can represent a `one-way` or `two-way` relationship (i.e. link or reference) to another content type and the type of the relationship can be either `one-to-one`, `one-to-many`, or `many-to-many`
-* *Publishing and Versioning* - work on new content in a draft state, preview it, and then publish it to clients when it's ready. Content is versioned and you can see what has happened in a publish history.
+* *Relationships* - a field in a content type can represent a `one-way` or `two-way` relationship (i.e. link or reference) to another content type and the type of the relationship can be either `one-to-one`, `one-to-many`, or `many-to-many`
+* *Publishing and Versioning* - you can work on new content in a draft state, preview it, and then publish it to clients when it's ready. Content is versioned and you can see what has happened in a publish history.
 * *Changelog* - Versioned maintains a log of changes made to all data so that editors can keep track of exactly what has been changed, when, and by whom
-* *Webhooks* - you can configure another system to receive an HTTP call whenever content is changed so that your clients always have the latest published content (you may for example need to rebuild a [static website](https://jamstack.org) when content changes)
+* *Webhooks* - configure another system to receive an HTTP call whenever content is changed so that your clients always have the latest published content (you may for example need to rebuild a [static website](https://jamstack.org) when content changes)
 * *Translations* - select which languages to translate your texts into and deliver only the relevant language to your users
 
 ## Tech Stack
@@ -44,8 +44,8 @@ The [REST API](http://api.versioned.io) has two main purposes:
 * Allowing `models` and `data` to be managed (primarily via the web UI). The API also handles `accounts`, `users`, and `spaces`.
 * Delivering published `data` to clients. Through the use of a secret API key clients can fetch one or more published documents. Clients have fine grained control over what should be fetched - the number of documents, sorting, filtering, fields, and relationships.
 
-The REST API has detailed API documentation (built on Swagger) available
-and it's linked from the [Admin UI](http://app.versioned.io).
+The REST API has detailed [API documentation](http://api.versioned.io) (built on Swagger) available
+and the API documentation specific to your project (the models defined in each space) is linked from the [Admin UI](http://app.versioned.io).
 
 ## The Admin UI
 
@@ -56,14 +56,14 @@ The [Admin UI](http://app.versioned.io) is where content creators manage
 * Defining `models` (data types) which are collections of fields and each field has a data type, validation rules (optional), and can represent a relationship to another model
 * Managing (creating, updating, deleting) `data` for each model. Data can be versioned and you control when new data (changes) should be published to clients
 * Organizing `models` and `data` into `spaces` (or projects) and configuring those spaces. It is highly recommended that you use a dedicated MongoDB database (i.e. with a service like [mLab](https://mlab.com) or [Compose](https://www.compose.com/databases/mongodb)) and [Algolia search service](https://www.algolia.com) for your spaces especially if you have large amounts of data. Via [Heroku Add-Ons](https://elements.heroku.com/addons) you can get access to free MongoDB and Algolia services.
-* Managing `assets`, i.e. uploaded files such as images, videos, PDFs etc. This feature requires that you sign up for a [Cloudinary](https://cloudinary.com) account.
+* Managing `assets`, i.e. uploaded files such as images, videos, PDFs etc. This feature is optional and requires that you sign up for a [Cloudinary](https://cloudinary.com) account.
 
 Note that since the web UI is based on the REST API, everything that can be done with the admin UI can also be done directly with the REST API.
 
 ## Content Delivery to Clients
 
 Content delivery to clients is done with the REST API via a CDN (Content Delivery Network) and makes use of an API key. Versioned doesn't come with
-a built-in CDN and you need to sign up for a service like [Fastly](https://www.fastly.com), [Cloudflare](https://www.cloudflare.com), [CloudFront](https://aws.amazon.com/cloudfront) and use it as a layer between your clients and the CDN for performance and scalability. Setting up such a CDN is straightforward and relatively cheap (i.e. [Fastly](https://elements.heroku.com/addons/fastly) offers</a> 10 million requests per month at 25 USD/month). If you are not using a CDN you can expect the Versioned REST API to be rate limited at around 5 requests per second.
+a built-in CDN and you need to sign up for a service like [Fastly](https://www.fastly.com), [Cloudflare](https://www.cloudflare.com), [CloudFront](https://aws.amazon.com/cloudfront) and use it as a layer between your clients and the Versioned REST API to achieve performance and scalability. Setting up such a CDN is straightforward and relatively cheap (i.e. [Fastly](https://elements.heroku.com/addons/fastly) offers</a> 10 million requests per month at 25 USD/month). If you are not using a CDN you can expect the Versioned REST API to be rate limited at around 5 requests per second.
 
 In the [Admin UI](http://app.versioned.io) you will find links to detailed API documentation and example API calls that illustrate how you fetch published data from your clients. Here is an example API call (with [httpie](https://httpie.org)) that lists published blog posts:
 
