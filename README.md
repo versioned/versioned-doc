@@ -62,10 +62,10 @@ Note that since the web UI is based on the REST API, everything that can be done
 
 ## Content Delivery to Clients
 
-Content delivery to clients is done with the REST API via a CDN (Content Delivery Network) and makes use of an API key. Versioned doesn't come with
-a built-in CDN and you need to sign up for a service like [Fastly](https://www.fastly.com), [Cloudflare](https://www.cloudflare.com), [CloudFront](https://aws.amazon.com/cloudfront) and use it as a layer between your clients and the Versioned REST API to achieve performance and scalability. Setting up such a CDN is straightforward and relatively cheap (i.e. [Fastly](https://elements.heroku.com/addons/fastly) offers</a> 10 million requests per month at 25 USD/month). If you are not using a CDN you can expect the Versioned REST API to be rate limited at around 5 requests per second.
+Content delivery to clients is done with the REST API via a CDN (Content Delivery Network) and authentication is handled with an API key. Versioned doesn't come with
+a built-in CDN and you need to sign up for a service like [Fastly](https://www.fastly.com), [Cloudflare](https://www.cloudflare.com), or [CloudFront](https://aws.amazon.com/cloudfront) and use it as a layer between your clients and the Versioned REST API to achieve performance and scalability. Setting up such a CDN should be straightforward and relatively cheap (i.e. [Fastly](https://elements.heroku.com/addons/fastly) offers</a> 10 million requests per month at 25 USD/month). If you are not using a CDN you can expect the Versioned REST API to be rate limited at around 5 requests per second.
 
-In the [Admin UI](http://app.versioned.io) you will find links to detailed API documentation and example API calls that illustrate how you fetch published data from your clients. Here is an example API call (with [httpie](https://httpie.org)) that lists published blog posts:
+In the [Admin UI](http://app.versioned.io) you will find links to detailed API documentation and example API calls that illustrate how you fetch published data for your clients. Here is an example API call (with [httpie](https://httpie.org)) that lists published blog posts:
 
 ```bash
 export BASE_URL=https://api.versioned.io/v1
@@ -75,16 +75,34 @@ export API_KEY=kf924ed960b74556
 http GET "$BASE_URL/data/$SPACE_ID/$MODEL?apiKey=$API_KEY&published=1"
 ```
 
-For more fine grained control over which data to fetch to your clients you
+For more fine grained control over which data to fetch you
 can use the query parameters `limit`, `skip`, `sort`, and `filter`. To configure which relationships to fetch (if there are any) use the query parameter `relationshipLevels` and optionally one of `relationships` and `graph`. The `graph` parameter is more powerful than the `relationships` parameter as it controls all fields and not just relationship fields. Please consult the API documentation for more details.
 
 ## Relationships
 
-TODO
+Relationships between models can be unidirectional or bidirectional:
+
+* A `two-way` relationship connects a field in one model to a field in another model and allows navigation in both directions
+* A `one-way` relationship is a unidirectional link (reference) from a field in a source model to a target model. You can only navigate from the source model to the target model and not in the other direction. There is no field in the target model for the relationship.
+
+The `type` of a relationship represents its cardinality (or degree), i.e.
+whether at each end of the relationship we have a single reference (ID) or multiple references:
+
+* `one-to-one` - each document in the source model is connected to one document in the target model. The reference in each model is unique.
+* `one-to-many` - there are many references (an array) in the source model and a single reference in the target model.
+* `many-to-one` - there is a single reference (an ID) in the source model and multiple references in the target model (the inverse of `one-to-many`)
+* `many-to-many` - there are multiple references (an array) in the source model and multiple references in the target model
 
 ## Publishing
 
-TODO
+There is a publishing life cycle for models with the following states:
+
+* `Not Yet Published` - the document has been created and potentially updated but it has not been published yet
+* `Published` - the document is currently published and there are no newer draft versions of the document that are awaiting publication
+* `Draft` - the document is published but there is a newer draft version that is awaiting publication
+* `Unpublished` - the document was published before but has been unpublished
+
+There is a version history that shows all versions of a document that have been published over time.
 
 ## Assets
 
