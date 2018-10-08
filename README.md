@@ -106,4 +106,4 @@ There is a version history that shows all versions of a document that have been 
 
 ## Assets
 
-TODO
+Versioned has a built-in content type (model) called `assets` that allows you to upload files such as images and to reference those files from your models. In order to use this feature you need to sign up for a [Cloudinary](https://cloudinary.com) account and enter your Cloudinary credentials (URL and preset) on the configuration page for your space.
