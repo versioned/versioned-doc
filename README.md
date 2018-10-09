@@ -107,3 +107,7 @@ There is a version history that shows all versions of a document that have been 
 ## Assets
 
 Versioned has a built-in content type (model) called `assets` that allows you to upload files such as images and to reference those files from your models. In order to use this feature you need to sign up for a [Cloudinary](https://cloudinary.com) account and enter your Cloudinary credentials (URL and preset) on the configuration page for your space.
+
+## Data Import
+
+There is an [import API endpoint](https://api.versioned.io/swagger-ui/index.html?url=https://api.versioned.io/v1/data/5ba205c2aefdde0013596636/swagger.json#/data/post_v1_data__spaceId__import__model_) that allows you to create 100 documents at a time for a model. If you need to write a script to import data there is an [example script](https://github.com/versioned/versioned-api/blob/master/examples/import-data.js) that you can use as inspiration.
