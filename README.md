@@ -60,6 +60,17 @@ The [Admin UI](http://app.versioned.io) is where content creators manage
 
 Note that since the web UI is based on the REST API, everything that can be done with the admin UI can also be done directly with the REST API.
 
+## Publishing
+
+There is a publishing life cycle for models with the following states:
+
+* `Not Yet Published` - the document has been created and potentially updated but it has not been published yet
+* `Published` - the document is currently published and there are no newer draft versions of the document that are awaiting publication
+* `Draft` - the document is published but there is a newer draft version that is awaiting publication
+* `Unpublished` - the document was published before but has been unpublished
+
+There is a version history that shows all versions of a document that have been published over time.
+
 ## Content Delivery to Clients
 
 Content delivery to clients is done with the REST API via a CDN (Content Delivery Network) and authentication is handled with an API key. Versioned doesn't come with
@@ -83,7 +94,7 @@ can use the query parameters `limit`, `skip`, `sort`, and `filter`. To configure
 Relationships between models can be unidirectional or bidirectional:
 
 * A `two-way` relationship connects a field in one model to a field in another model and allows navigation in both directions
-* A `one-way` relationship is a unidirectional link (reference) from a field in a source model to a target model. You can only navigate from the source model to the target model and not in the other direction. There is no field in the target model for the relationship.
+* A `one-way` relationship is a unidirectional link (reference) from a field in a source model to one ore more target models. You can only navigate from the source model to the target models - not in the other direction. There is no field in the target models to represent the relationship.
 
 The `type` of a relationship represents its cardinality (or degree), i.e.
 whether at each end of the relationship we have a single reference (ID) or multiple references:
@@ -92,17 +103,6 @@ whether at each end of the relationship we have a single reference (ID) or multi
 * `one-to-many` - there are many references (an array) in the source model and a single reference in the target model.
 * `many-to-one` - there is a single reference (an ID) in the source model and multiple references in the target model (the inverse of `one-to-many`)
 * `many-to-many` - there are multiple references (an array) in the source model and multiple references in the target model
-
-## Publishing
-
-There is a publishing life cycle for models with the following states:
-
-* `Not Yet Published` - the document has been created and potentially updated but it has not been published yet
-* `Published` - the document is currently published and there are no newer draft versions of the document that are awaiting publication
-* `Draft` - the document is published but there is a newer draft version that is awaiting publication
-* `Unpublished` - the document was published before but has been unpublished
-
-There is a version history that shows all versions of a document that have been published over time.
 
 ## Assets
 
