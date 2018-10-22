@@ -47,6 +47,12 @@ The [REST API](http://api.versioned.io) has two main purposes:
 The REST API has detailed [API documentation](http://api.versioned.io) (built on Swagger) available
 and the API documentation specific to your project (the models defined in each space) is linked from the [Admin UI](http://app.versioned.io).
 
+## GraphQL
+
+The [REST API](http://api.versioned.io) contains a GraphQL endpoint that allows clients to access
+the graph of published data in a powerful and efficient way. The recommended way to explore this feature
+is to use the GraphiQL UI that is linked from the Api page in the [Admin UI](http://app.versioned.io).
+
 ## The Admin UI
 
 The [Admin UI](http://app.versioned.io) is where content creators manage
@@ -73,7 +79,7 @@ There is a version history that shows all versions of a document that have been 
 
 ## Content Delivery to Clients
 
-Content delivery to clients is done with the REST API via a CDN (Content Delivery Network) and authentication is handled with an API key. Versioned doesn't come with
+Content delivery to clients is done with the REST API (or GraphQL) via a CDN (Content Delivery Network) and authentication is handled with an API key. Versioned doesn't come with
 a built-in CDN and you need to sign up for a service like [Fastly](https://www.fastly.com), [Cloudflare](https://www.cloudflare.com), or [CloudFront](https://aws.amazon.com/cloudfront) and use it as a layer between your clients and the Versioned REST API to achieve performance and scalability. Setting up such a CDN should be straightforward and relatively cheap (i.e. [Fastly](https://elements.heroku.com/addons/fastly) offers</a> 10 million requests per month at 25 USD/month). If you are not using a CDN you can expect the Versioned REST API to be rate limited at around 5 requests per second.
 
 In the [Admin UI](http://app.versioned.io) you will find links to detailed API documentation and example API calls that illustrate how you fetch published data for your clients. Here is an example API call (with [httpie](https://httpie.org)) that lists published blog posts:
